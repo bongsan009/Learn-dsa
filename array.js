@@ -78,7 +78,42 @@ function SelectionSortV2(list){
     }
 }
 
-const nums = [5,4,3,2,1,0];
-SelectionSortV2(nums);
 
-console.log(nums);
+function Qs(list, s, e){
+    if(e == undefined) e = list.length - 1;
+
+    if(s < e){
+
+
+        let index = partiton(list, s, e);
+
+        Qs(list, s, index - 1); // not include pivot.
+        Qs(list, index + 1, e);
+
+
+
+
+    }
+}
+
+function partiton(list, s, e){
+    const pivot = list[e];
+    let i = -1;
+
+    for(let j = 0; j < e; j++){
+        if(list[j] < pivot){
+            i++;
+            let temp = list[j];
+            list[j]  = list[i];
+            list[i]  = temp;
+        }
+    }
+
+    i++;
+
+    let temp = list[i];
+    list[i]  = list[e];
+    list[e]  = temp;
+
+    return i;
+}
