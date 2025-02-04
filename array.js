@@ -256,3 +256,47 @@ function CountingSort(list){
         }
     }
 }
+
+// 8. Linear Search
+function LinearSearch(list, key){
+    const n = list.length;
+
+    for(let i = 0; i < n; i+=1){
+        if(list[i] == key){
+            return i;
+        }
+    }
+    return -1;
+}
+
+// 9. Binary Search
+function BinarySearch(list, key){
+    const n = list.length;
+
+    let l = 0;
+    let r = n - 1;
+
+    while(l <= r){
+        const mid = Math.floor((l + r) / 2);
+
+        if(list[mid] == key){
+            return mid;
+        }else if(list[mid] < key){
+            l = mid + 1;
+        }else{
+            r = mid - 1;
+        }
+    }
+    return -1;
+}
+
+const list = [10, 20, 30, 40, 50];
+const key = 500;
+let result = BinarySearch(list, key);
+
+if(result != -1){
+    console.log("Found it! at index ", result);
+}else{
+    console.log("The elem not found!");
+
+}
