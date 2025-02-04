@@ -152,8 +152,107 @@ function partitonII(list, l, r, pivot){
     return l;
 }
 
-const list = [5,4,3,2,1,0];
+// 6. Merge Sort
+function MergeSort(list){
+    // IF the array has only one elem.
+    if(list.length <= 1){
+        return list;
+    }
 
-QuickSort(list, 0, list.length - 1);
+    const mid = Math.floor(list.length / 2);
 
-console.log("Result :: ", list);
+    const leftSubArray = MergeSort(list.slice(0, mid)) // [5,4,3]
+    const rightSubArray = MergeSort(list.slice(mid)) // [2,1]
+
+    return merge(leftSubArray, rightSubArray);
+}
+function merge(leftSubArray, rightSubArray){
+    const result = new Array();
+
+    let i = 0;
+    let j = 0;
+
+    while(i < leftSubArray.length && j < rightSubArray.length){
+        if(leftSubArray[i] < rightSubArray[j]){
+            result.push(leftSubArray[i]);
+            i++;
+        }else{
+            result.push(rightSubArray[j]);
+            j++;
+        }
+    }
+
+    return result.concat(leftSubArray.slice(i), rightSubArray.slice(j));
+}
+
+// Merge Sort (Approach 2)
+function MergeSortV2(list, s = 0, e = list.length){
+    if(s < e){
+        const mid = Math.floor((s + e) / 2);
+
+        MergeSortV2(list, s, mid);
+        MergeSortV2(list, mid + 1, e);
+
+        mV2(list, s, mid, e);
+    }
+}
+function mV2(list, s, m, e){
+    let tempArray = new Array(e - s + 1);
+    let i = s;
+    let j = m + 1;
+    let k = 0;
+
+    while(i <= m && j <= e){
+        if(list[i] < list[j]){
+            tempArray[k] = list[i];
+            i++;
+        }else{
+            tempArray[k] = list[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i <= m){
+        tempArray[k] = list[i];
+        i++; k++
+    }
+
+    while(j <= e){
+        tempArray = list[j];
+        j++; k++;
+    }
+
+    k = 0;
+
+    for(let i = s; i <= e; i++){
+        list[i] = tempArray[k++];
+    }
+}
+
+// 7. Counting sort
+function CountingSort(list){
+    const n = list.length;
+    let maxElem = -Infinity;
+
+    // Find the max elem inside the Array.
+    for(let i = 0; i < n; i++){
+        if(list[i] > maxElem){
+            maxElem = list[i];
+        }
+    }
+
+    const count = new Array(maxElem + 1).fill(0);
+
+    for(const item of list){
+        count[item]++;
+    }
+
+    let index = 0;
+
+    for(let i = 0; i < count.length; i++){
+        while(count[i]-- > 0){
+            list[index++] = i;
+        }
+    }
+}
