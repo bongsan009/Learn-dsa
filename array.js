@@ -60,7 +60,7 @@ function SelectionSort(list){
     }
 }
 
-// 4. Avoid shifting problem.
+// Avoid shifting problem.
 function SelectionSortV2(list){
     const n = list.length;
 
@@ -79,6 +79,7 @@ function SelectionSortV2(list){
 }
 
 
+// 5. Quick Sort choose the last elem as the pivot.
 function Qs(list, s, e){
     if(e == undefined) e = list.length - 1;
 
@@ -95,7 +96,6 @@ function Qs(list, s, e){
 
     }
 }
-
 function partiton(list, s, e){
     const pivot = list[e];
     let i = -1;
@@ -117,3 +117,43 @@ function partiton(list, s, e){
 
     return i;
 }
+
+// Quick Sorting choose the middle elem as the pivot.
+function QuickSort(list, s, e){
+    // False when s and e stand on the same elem.
+    if(s < e){
+        const mid = Math.floor((s + e) / 2);
+        const pivot = list[mid];
+
+        const index = partitonII(list, s, e, pivot);
+
+        QuickSort(list, s, index - 1);
+        QuickSort(list, index, e);
+    }
+}
+function partitonII(list, l, r, pivot){
+    while(l <= r){
+        while(list[l] < pivot){
+            l++;
+        }
+
+        while(list[r] > pivot){
+            r--;
+        }
+
+        if(l <= r){
+            let temp = list[l];
+            list[l] = list[r];
+            list[r] = temp;
+            l++;
+            r--;
+        }
+    }
+    return l;
+}
+
+const list = [5,4,3,2,1,0];
+
+QuickSort(list, 0, list.length - 1);
+
+console.log("Result :: ", list);
