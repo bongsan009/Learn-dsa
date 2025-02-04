@@ -289,14 +289,3 @@ function BinarySearch(list, key){
     }
     return -1;
 }
-
-const list = [10, 20, 30, 40, 50];
-const key = 500;
-let result = BinarySearch(list, key);
-
-if(result != -1){
-    console.log("Found it! at index ", result);
-}else{
-    console.log("The elem not found!");
-
-}
